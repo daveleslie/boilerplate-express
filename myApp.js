@@ -52,21 +52,20 @@ app.get("/:word/echo", function echo(req, res, next) {
 });
 
 app.route("/name").post(
-    (req, res, next) => {
+    (req, res) => {
       // var firstName = req.query.firstName;
       // var lastName = req.query.lastName;
       var {first: firstName, last: lastName} = req.body;
       res.json({
         name : `${firstName} ${lastName}`
       });
-      next()
     }).get(
-    (req, res, next) => {
+    (req, res) => {
       var {first: firstName, last: lastName} = req.query;
       res.json({
         name: `${firstName} ${lastName}`
       });
-      next();
+    
     });
 
 
