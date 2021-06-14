@@ -14,9 +14,10 @@ function getTheTime() {
   return new Date().toString();
 };
 
-
+// build simple request logger
 app.use("/" , function logger(req, res, next) {
-  console.log(req.method + " " + req.path + " - " + req.ip);
+  var logString = req.method + " " + req.path + " - " + req.ip; 
+  console.log(logString);
   next();
 });
 
@@ -24,12 +25,17 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
 });
 
-
+// build time server
 app.get("/now", (req, res, next) => {
   req.time = getTheTime();
   next();
 }, (req, res) => {
   res.json({"time" : req.time})
+});
+
+// build echo server
+app.get("/:word/echo", function echo(req, res, next) {
+  res.json({"echo" : req.params.word});
 });
 
 
