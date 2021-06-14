@@ -1,4 +1,5 @@
-require('dotenv').config()
+require('dotenv').config();
+var bodyParser = require('body-parser');
 
 var express = require('express');
 var app = express();
@@ -16,6 +17,10 @@ function getTheTime() {
 
 // static middleware to serve stylesheets
 app.use("/public", express.static(__dirname + "/public"));
+
+// mount body-parser middleware
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 // build simple request logger
 app.use("/" , function logger(req, res, next) {
